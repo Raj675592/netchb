@@ -1,0 +1,1869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+	Specifying the XML namespace and schema location are optional.  However,
+	any entry that is submitted via this webservice will be validated against
+	the http://www.netchb.com/xml/entry/entry.xsd schema.
+-->
+<entry
+	 xmlns="http://www.netchb.com/xml/entry"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://www.netchb.com/xml/entry
+	     http://www.netchb.com/xml/entry/entry.xsd">
+	<!--
+		The purpose of the <entry-no> tag is to tell NetChb how the
+		entry-no for this entry should be created.
+		The <entry-no> tag can have 2 possible sub-elements.  The
+		first is <user-specified>.  If this is included, then
+		the <user-specified> element must contain 2 elements,
+		<filer-code> and <entry-no>, respectively.  The value for
+		the <entry-no> element must be a 7 digit number.  The check-sum
+		tag is optional
+		A valid <user-specified> group would be:
+		<user-specified>
+			<filer-code>ABC</filer-code>
+			<entry-no>1234567</entry-no>
+			<check-sum>1</check-sum>
+		</user-specified>.
+		The other option is <system-generated>.  This means that
+		NetChb will create the entry number for this entry.
+		This should be included as a simple empty tag,
+		<system-generated />
+		-->
+	<entry-no>
+		<user-specified>
+			<filer-code>ABC</filer-code>
+			<entry-no>0000001</entry-no>
+			<!-- check sum is optional -->
+			<check-sum>1</check-sum>
+		</user-specified>
+	</entry-no>
+	
+	<!--
+		This is an optional tag.  If present, this informs NetChb
+		that duties and fees have already been calculated, and NetChb
+		will not calculate duties and fees for the entry.
+		-->
+	<precalculated />
+	
+	<!--
+		The <transmit /> tag is optional.  If present, NetChb
+		will automatically transmit the entry summary to customs
+		once the upload of this entry is complete.
+		-->
+	<transmit />
+	
+	<!-- This tag is deprecated ALL entries will be cleared via ACE -->
+	<via-ace/>
+	
+	<!--
+		Elements within the header tag can appear in any order, and has many optional
+		elements.  Please consult the entry.xsd schema for more details
+	-->
+	<header>
+		<!--
+			The Importer field is populated with the required <importer-tax-id> and
+			the optional <importer-name> tag. The <importer-name> tag is there in the 
+			case that multiple Trade Partners are set up with the same tax id. In that case,
+			the system will try to match by the importer profile name. If there is a match
+			the system will use that importer and if no match is found, it will default to 
+			the first importer found with a warning to let the user know that multiple were found.
+			
+			e.g. <importer-name>Companies Profile Name</importer-name>
+			-->
+		<importer-tax-id>12-1234567ab</importer-tax-id>
+		<!--
+			The ultimate consignee can have three possible sub-elements.
+			The first is <tax-id>, which must contain the tax id as
+			the value.  The second is the <consignee-name> element in which the system
+			will match the correct trade partners profile name if multiple
+			partners with the same tax id are found.The third possible sub-element is <multiple />
+			which indicates that there are multiple ultimate consignees.
+			
+			e.g. <consignee-name>Companies Profile Name</consignee-name>
+			-->
+		<ultimate-consignee>
+			<tax-id>100-20-3000</tax-id>
+			<multiple />
+		</ultimate-consignee>
+		<processing-port>8888</processing-port>
+		<entry-port>8888</entry-port>
+		<payment-type>2</payment-type>
+		<!-- required if payment type is not 1 -->
+		<statement-date>2007-12-31</statement-date>
+		<charges>100</charges>
+		<gross-weight>200</gross-weight>
+		<total-entry-value>100</total-entry-value>
+		<description>stuff</description>
+		
+		<!-- these 2 tags should almost always be included -->
+		<certify-cargo-release-via-ace/>
+		<paperless-summary-certification />
+		
+		<!-- all dates must be a valid XML xsd:date, yyyy-mm-dd -->
+		<entry-date>2007-12-31</entry-date>
+		<entry-type>01</entry-type>
+		<carrier-code>aa</carrier-code>
+		<bond-type>08</bond-type>
+		<surety-code>123</surety-code>
+		
+		<!-- required for bond type 09
+		<bond-producer-account-no>1234567890</bond-producer-account-no>
+		-->
+		
+		<!-- required for formal entries -->
+		<state-destination>CA</state-destination>
+		
+		<!-- required for formal entries or cargo release processing -->
+		<mode-transportation>40</mode-transportation>
+		
+		<!-- voyage/flight-no is required for air or ocean shipments -->
+		<voyage-no>12345</voyage-no>
+		
+		<!-- required for cargo release certification -->
+		<location-of-goods>C213</location-of-goods>
+		
+		<!-- port of unlading is required for ocean shipments
+		<unlading-port>8888</unlading-port>
+		-->
+		
+		<!--
+			required for ocean shipments or 06 entry types, can be a maximum of
+			20 characters
+		<vessel-name>vessel name</vessel-name>
+		-->
+		
+		<!-- import date is required for entry types 21, 22, 23
+		<import-date>2007-12-31</import-date>
+		-->
+		
+		<!-- the following elements within the <header> tag are optional -->
+		
+		<!--
+			remote-entry is optional, but if included, it has one
+			mandatory (preparer-port) and 2 optional sub-elements
+		-->
+		<remote-entry>
+			<preparer-port>8888</preparer-port>
+			<preparer-office-code>99</preparer-office-code>
+			<remote-exam-port>8888</remote-exam-port>
+		</remote-entry>
+		
+		<!-- optional, including indicates this is a live entry-->
+		<live-entry />
+		
+		<!-- optional, including indicates invoices are AII capable -->
+		<electronic-invoice />
+		
+		<!-- warehouse entry is for warehouse withdrawal entries
+		<warehouse-entry>
+			<warehouse-filer-code>ABC</warehouse-filer-code>
+			<warehouse-entry-no>0000005</warehouse-entry-no>
+			<warehouse-port>8888</warehouse-port>
+			including the final-withdrawal tag indicates that is is the final
+			withdrawal for this warehouse entry
+			<final-withdrawal />
+		</warehouse-entry>
+		-->
+		
+		<!-- all of the following tags are optional -->
+		<arrival-date>2007-12-31</arrival-date>
+		<team-no>123</team-no>
+		<oga-line-release />
+		<customer-reference-no>12345</customer-reference-no>
+		<broker-reference-no>123456789</broker-reference-no>
+		<cf-4811>123-45-7894</cf-4811>
+		<nafta-recon />
+		<other-recon>3</other-recon>
+		<bond-amount>9999999999</bond-amount>
+		<general-order-no>123</general-order-no>
+		<trailer-no>12345</trailer-no>
+		<informal-fee>2</informal-fee>
+		<mail-fee>3</mail-fee>
+		<manual-surcharge>5</manual-surcharge>
+		<consolidated-informal-indicator>P</consolidated-informal-indicator>
+		<missing-docs>
+			<code>10</code>
+			<code>18</code>
+		</missing-docs>
+
+		<!-- The following tags are all optional, and are only relevant for ACE entries -->
+		<!--
+		<perishable/>
+		<immediate-delivery/>
+		<bond-waiver-reason>995</bond-waiver-reason>
+		<lloyds-vessel-code>1100</lloyds-vessel-code>
+		<superseded-bond/>
+		<add-cvd-bond-type>09</add-cvd-bond-type>
+		<add-cvd-superseded-bond/>
+		<add-cvd-bond-producer-account-no>addbpan</add-cvd-bond-producer-account-no>
+		<add-cvd-stb-amount>909</add-cvd-stb-amount>
+		<add-cvd-surety-code>565</add-cvd-surety-code>
+		<post-summary-correction>
+			<explanation-for-correction>some reason</explanation-for-correction>
+			<psc-header-reason-code>H02</psc-header-reason-code>
+			<psc-header-reason-code>H04</psc-header-reason-code>
+		</post-summary-correction>-->
+	</header>
+	
+	<!-- this is for consolidated entries, optional 
+	<consolidated-entries>
+		<total-manifest-quantity>9999999999</total-manifest-quantity>
+		<consolidated-entry>
+			<filer-code>abc</filer-code>
+			<entry-no>1234567</entry-no>
+		</consolidated-entry>
+		<consolidated-entry>
+			<filer-code>abc</filer-code>
+			<entry-no>7654321</entry-no>
+		</consolidated-entry>
+	</consolidated-entries>
+	-->
+	
+	<!-- manifest information -->
+	<manifest>
+		<inbond-date>2007-12-31</inbond-date>
+		<split-shipment>2</split-shipment>
+		<bill-of-lading>
+			<inbond-no>123456789</inbond-no>
+			<master-scac>abcd</master-scac>
+			<master-bill>123456789012</master-bill>
+			<house-scac>abcd</house-scac>
+			<house-bill>987654321021</house-bill>
+			<sub-house-bill>123456789012</sub-house-bill>
+			<quantity>100</quantity>
+			<unit>pcs</unit>
+		</bill-of-lading>
+		<bill-of-lading>
+			<master-scac>abcd</master-scac>
+			<master-bill>123456789012</master-bill>
+			<quantity>100</quantity>
+			<unit>ctns</unit>
+			<split-shipments>
+				<split-shipment>
+					<carrier>AA</carrier>
+					<flight-no>999</flight-no>
+					<arrival-date>2015-04-13</arrival-date>
+					<quantity>75</quantity>
+				</split-shipment>
+				<split-shipment>
+					<carrier>AA</carrier>
+					<flight-no>1000</flight-no>
+					<arrival-date>2015-04-15</arrival-date>
+					<quantity>25</quantity>
+				</split-shipment>
+			</split-shipments>
+		</bill-of-lading>
+	</manifest>
+	
+	<!--
+		The containers tag is optional. The <containers> tag can have two types of child tags, <container-number> or <container>.
+		The <container> tag allows you to include more information, such as the seal number
+		(see entry:containerType).  The <container-number> tag only allows you to upload the container number.
+	 -->
+	<containers>
+		<container-number>1234567890</container-number>
+		<container>
+			<container-number>9876655432123</container-number>
+			<container-size>40 ft</container-size>
+			<container-type>Dry</container-type>
+			<seal-numbers>123</seal-numbers>
+		</container>
+		<container>
+			<container-number>5</container-number>
+			<po-number>6</po-number>
+			<po-number-descriptor>Reference Number</po-number-descriptor>
+			<quantity>10</quantity>
+			<quantity-unit>PCS</quantity-unit>
+		</container>
+	</containers>
+	
+	<ace-cargo-release-parties>
+		<entity>
+			<entity-code>BY</entity-code>
+			<entity-name>buyer</entity-name>
+			<entity-information>
+				<entity-address>
+					<address-components>
+						<address-component>
+							<component-type>01</component-type>
+							<address-information>567</address-information>
+						</address-component>
+						<address-component>
+							<component-type>02</component-type>
+							<address-information>23rd st</address-information>
+						</address-component>
+					</address-components>
+					<city>new york</city>
+					<state-province-code>NY</state-province-code>
+					<postal-code>10011</postal-code>
+					<country>US</country>
+				</entity-address>
+			</entity-information>
+		</entity>
+		<entity>
+			<entity-code>SE</entity-code>
+			<entity-name>seller</entity-name>
+			<entity-information>
+				<entity-id>213456789</entity-id>
+			</entity-information>
+		</entity>
+	</ace-cargo-release-parties>
+	
+	<!-- invoices -->
+	<invoices>
+		<invoice>
+			<invoice-no>12345</invoice-no>
+			<!--
+				aii-supplier-id should be included if <electronic-invoice /> is
+				included in the entry header
+				-->
+			<aii-supplier-id>supplier Id</aii-supplier-id>
+			<!--
+				ultimate-consignee-tax-id should be included if <multiple />
+				is chosen for <ultimate-consignee> in the entry header
+				-->
+			<ultimate-consignee-tax-id>123-45-7894</ultimate-consignee-tax-id>
+			
+			<!-- option, indicates related parties-->
+			<related-party />
+			
+			<line-items>
+				<line-item>
+					<export-date>2007-12-31</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<!-- required for ocean/air shipments -->
+					<country-export>cn</country-export>
+					
+					<!-- required for ocean shipments -->
+					<lading-port>12345</lading-port>
+					
+					<!-- optional -->
+					<gross-weight>100</gross-weight>
+					
+					<ace-cargo-release-parties>
+						<entity>
+							<entity-code>MF</entity-code>
+							<entity-name>manufacturer</entity-name>
+							<entity-information>
+								<entity-address>
+									<address-components>
+										<address-component>
+											<component-type>01</component-type>
+											<address-information>567</address-information>
+										</address-component>
+										<address-component>
+											<component-type>02</component-type>
+											<address-information>23rd st</address-information>
+										</address-component>
+									</address-components>
+									<city>new york</city>
+									<state-province-code>NY</state-province-code>
+									<postal-code>10011</postal-code>
+									<country>US</country>
+								</entity-address>
+							</entity-information>
+						</entity>
+					</ace-cargo-release-parties>
+	
+					<!-- hts classfications -->
+					<tariffs>
+						<tariff>
+							<tariff-no>1234567890</tariff-no>
+							<value>20</value>
+							
+							<!--
+								quantites and units of measure should be included,
+								but are optional depending on the units
+								specified by the HTS number
+							-->
+							<quantity1>10.51</quantity1>
+							<unit-of-measure1>KG</unit-of-measure1>
+							
+							<!-- optional -->
+							<special-program>A</special-program>
+							<!-- optional -->
+							<secondary-special-program>F</secondary-special-program>
+							
+							<!-- additional quantities are possible
+							<quantity2>10.51</quantity2>
+							<unit-of-measure2>KG</unit-of-measure2>
+							<quantity3>10.51</quantity3>
+							<unit-of-measure3>KG</unit-of-measure3>
+							-->
+							
+							<!--
+								duty tag is optional, but should be included if the
+								<precalculated /> tag is included in the entry header
+							-->
+							<duty>2.25</duty>
+						</tariff>
+						<!--stacked classification, to show that it's possible -->
+						<tariff>
+							<tariff-no>987654321</tariff-no>
+							<value>30</value>
+							<duty>3.50</duty>
+							
+							<quantity1>1000000000</quantity1>
+							<unit-of-measure1>M</unit-of-measure1>
+							<quantity2>50</quantity2>
+							<unit-of-measure2>CM</unit-of-measure2>
+							<quantity3>20.89</quantity3>
+							<unit-of-measure3>BBL</unit-of-measure3>
+						</tariff>
+					</tariffs>
+					
+					<!--
+						fees tag is optional, but should be included if the
+						<precalculated /> tag is included in the entry header
+					-->
+					<fees>
+						<fee>
+							<class-code>056</class-code>
+							<tariff-no>1234567890</tariff-no>
+							<amount>100.45</amount>
+						</fee>
+						<fee>
+							<class-code>499</class-code>
+							<amount>50</amount>
+						</fee>
+					</fees>
+					
+					<!--
+						aii-invoice-lines is optional, but should be included if
+						<electronic-invoice /> is included in the entry header
+					-->
+					<aii-invoice-lines>
+						<line>
+							<beginning-line>1</beginning-line>
+							<ending-line>1</ending-line>
+						</line>
+						<line>
+							<beginning-line>2</beginning-line>
+							<ending-line>10</ending-line>
+						</line>
+					</aii-invoice-lines>
+					
+					<!-- ace fields -->
+					<delivered-to>DELIVERED</delivered-to>
+					<sold-to>SOME SELLER</sold-to>
+					<exporter>SOME MFG</exporter>
+					<other-license>
+						<license-number>34567</license-number>
+						<license-type>01</license-type>
+					</other-license>
+					
+					<census-warning-overrides>
+						<census-override>
+							<warning-code>27A</warning-code>
+							<override-code>02</override-code>
+						</census-override>
+						<census-override>
+							<warning-code>27G</warning-code>
+							<override-code>06</override-code>
+						</census-override>
+					</census-warning-overrides>
+					
+					<post-summary-corrections>
+						<correction-code>L03</correction-code>
+						<correction-code>L06</correction-code>
+					</post-summary-corrections>
+					
+					<!-- 
+					Optional Fields for anti-dumping/countervailing 
+					<non-reimbursement/>
+					<non-reimbursement-id>11122233</non-reimbursement-id>
+					<add-cvd-quantity>12</add-cvd-quantity>
+					<rate-type>S</rate-type>
+					 -->
+					
+					<!-- anti-dumping tag is optional,
+						within the anti-dumping tag, bonded tag and specific deposit
+						are optional -->
+					<anti-dumping>
+						<case-number>12345</case-number>
+						<deposit-rate>0.1234</deposit-rate>
+						<duty>200.35</duty>
+						<bonded />
+						<specific-deposit>100</specific-deposit>
+					</anti-dumping>
+					<!-- countervailing is optional -->
+					<countervailing>
+						<case-number>12345</case-number>
+						<deposit-rate>0.1234</deposit-rate>
+						<duty>200.35</duty>
+					</countervailing>
+					
+					<!-- all of the following are optional elements-->
+					<zone-status>P</zone-status>
+					<privileged-status-file-date>2007-12-31</privileged-status-file-date>
+					<softwood-lumber>abc</softwood-lumber>
+					<nafta-net-cost />
+					<pirp-no>abc123</pirp-no>
+					<type-indicator>D</type-indicator>
+					<commercial-description>description</commercial-description>
+					<visa-export-date>2007-12-31</visa-export-date>
+					<visa-no>cn1234567</visa-no>
+					<visa-quantity>200</visa-quantity>
+					<visa-unit-of-measure>CM</visa-unit-of-measure>
+					<category-no>123</category-no>
+					<agriculture-license-no>1-ab-123-1</agriculture-license-no>
+					<cotton-certificate-no>999999999</cotton-certificate-no>
+					<organic-exemption-no>123</organic-exemption-no>
+					<lumber-permit-no>123</lumber-permit-no>
+					<canadian-sugar-export-certificate>abc12345</canadian-sugar-export-certificate>
+					<wool-license>abc123456</wool-license>
+					<cbtpa-certification>abc123456</cbtpa-certification>
+					<australian-fta-export-certificate>abc123456</australian-fta-export-certificate>
+					<irs-tax>50</irs-tax>
+					<primary-country-smelt-applicable>true</primary-country-smelt-applicable>
+					<primary-country-smelt>CN</primary-country-smelt>
+					<secondary-country-smelt-applicable>true</secondary-country-smelt-applicable>
+					<secondary-country-smelt>BH</secondary-country-smelt>
+					<country-cast>CH</country-cast>
+				</line-item>
+				
+				<!-- line item with minimal information-->
+				<line-item>
+					<export-date>2007-12-31</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<ace-cargo-release-parties>
+						<entity>
+							<entity-code>SE</entity-code>
+							<entity-name>seller</entity-name>
+							<entity-information>
+								<entity-address>
+									<address-components>
+										<address-component>
+											<component-type>01</component-type>
+											<address-information>567</address-information>
+										</address-component>
+										<address-component>
+											<component-type>02</component-type>
+											<address-information>23rd st</address-information>
+										</address-component>
+									</address-components>
+									<city>new york</city>
+									<state-province-code>NY</state-province-code>
+									<postal-code>10011</postal-code>
+									<country>US</country>
+								</entity-address>
+							</entity-information>
+						</entity>
+					</ace-cargo-release-parties>
+
+					<tariffs>
+						<tariff>
+							<tariff-no>12345678</tariff-no>
+							<value>100</value>
+							<quantity1>5</quantity1>
+							<unit-of-measure1>KM</unit-of-measure1>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with FDA PGA information-->
+				<line-item>
+					<export-date>2016-05-31</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>12345678</tariff-no>
+							<value>100</value>
+							<quantity1>5</quantity1>
+							<unit-of-measure1>KM</unit-of-measure1>
+							
+							<fda-items>
+								<fda-pga>
+									<commercial-description>SOME PRODUCT REGULATED BY FDA</commercial-description>
+									<pg01>
+										<!-- these 2 tags are required, See FDA Supplemental Guide for valid program and processing codes -->
+										<agency-program-code>FOO</agency-program-code>
+										<agency-processing-code>PRO</agency-processing-code>
+										
+										<!-- intended use code and description are optional, but may be necessary based on certain FDA requirements -->
+										<intended-use-code>260.000</intended-use-code>
+										<intended-use-code>015.000</intended-use-code>
+										<intended-use-description>a description</intended-use-description>
+									</pg01>
+									<pg02>
+										<!-- item type should almost always be P.  If omitted, it will be defaulted to P -->
+										<item-type>P</item-type>
+										<!-- FDA product code is required -->
+										<product-code>95R--HD</product-code>
+									</pg02>
+									
+									<!-- PG04 is sometimes required -->
+									<ingredients>
+										<pg04>
+											<name-of-element>STUFF</name-of-element>
+											<quantity-of-element>20</quantity-of-element>
+											<unit-of-measure>KG</unit-of-measure>
+										</pg04>
+										<pg04>
+											<active-ingredient/>
+											<name-of-element>SOMETHING ELSE</name-of-element>
+											<quantity-of-element>10</quantity-of-element>
+											<unit-of-measure>KG</unit-of-measure>
+											<percent-of-element>52.12</percent-of-element>
+										</pg04>
+									</ingredients>
+									
+									<!-- PG05 is optional, depending on FDA requirements.  PG06 is required.  Sometimes, multiple origin tags are required -->
+									<origin-information>
+										<origin>
+											<!-- pg05 is optional -->
+											<pg05>
+												<genus-name>MAMMAL</genus-name>
+												<species-name>Orcinus orca</species-name>
+											</pg05>
+											<pg06>
+												<source-type-code>39</source-type-code>
+												<country-code>NO</country-code>
+											</pg06>
+										</origin>
+										<origin>
+											<pg06>
+												<source-type-code>CSH</source-type-code>
+												<country-code>NO</country-code>
+											</pg06>
+										</origin>
+									</origin-information>
+									
+									<!-- brand name is required most of the time -->
+									<pg07>
+										<brand-name>COMPANY NAME</brand-name>
+									</pg07>
+									
+									<!-- pg14 is used for reporting the PNC number for prior notice -->
+									<pg14>
+										<license-number>123456789012</license-number>
+									</pg14>
+									
+									<!-- several entities are required for FDA.  The FDA supplemental guide should be consulted for details -->
+									<entities>
+										<entity>
+											<role-code>MF</role-code>
+											<name>A MANUFACTURER</name>
+											<address1>SOME STREET</address1>
+											<city>SOME CITY</city>
+											<country>CN</country>
+											<contacts>
+												<pg21>
+													<name>SMITH, JOHN</name>
+													<phone-number>111-222-3333</phone-number>
+													<email-or-fax>JOHN@EMAIL.COM</email-or-fax>
+												</pg21>
+											</contacts>
+										</entity>
+									</entities>
+									
+									<!-- compliance codes necessary vary based on FDA data entered. The FDA supplemental guide should be consulted for details -->
+									<compliance-codes>
+										<pg23>
+											<compliance-code>VFT</compliance-code>
+											<compliance-qualifier>12345</compliance-qualifier>
+										</pg23>
+										<pg23>
+											<compliance-code>PFR</compliance-code>
+											<compliance-qualifier>999</compliance-qualifier>
+										</pg23>
+									</compliance-codes>
+									
+									<!-- remarks are optional -->
+									<remarks>
+										<pg24>
+											<remark>THIS IS A SIMPLE COMMENT</remark>
+										</pg24>
+									</remarks>
+									
+									<lot-value-information>
+										<pg25>
+											<!-- line value is required -->
+											<line-value>100.50</line-value>
+											
+											<!-- these tags are optional -->
+											<unit-value>1.00</unit-value>
+											<temperature-qualifier>A</temperature-qualifier>
+											<temperature>21</temperature>
+											<degree-type>C</degree-type>
+											<location-of-temperature-recording>A</location-of-temperature-recording>
+											<lot-number>123</lot-number>
+											<production-start-date>2016-01-01</production-start-date>
+											<production-end-date>2016-05-01</production-end-date>
+										</pg25>
+									</lot-value-information>
+									
+									<!-- packing should be declared from the biggest packing unit to the smallest -->
+									<packaging>
+										<pg26>
+											<quantity>50.5</quantity>
+											<unit-of-measure>BX</unit-of-measure>
+										</pg26>
+										<pg26>
+											<quantity>200</quantity>
+											<unit-of-measure>G</unit-of-measure>
+										</pg26>
+									</packaging>
+									
+									<!-- containers are sometimes necessary -->
+									<containers>
+										<pg27>
+											<container-number>123</container-number>
+										</pg27>
+										<pg27>
+											<container-number>SECOND CONTAINER</container-number>
+										</pg27>
+									</containers>
+									
+									<!-- can dimensions are necessary for some food imports -->
+									<pg28>
+										<can-dimension-1>1012</can-dimension-1>
+										<can-dimension-2>0500</can-dimension-2>
+										<can-dimension-3>0809</can-dimension-3>
+									</pg28>
+									
+									<!-- the PG29 record is optional -->
+									<pg29>
+										<line-net-quantity>50.20</line-net-quantity>
+										<line-net-units>KG</line-net-units>
+									</pg29>
+									
+									<!-- PG30 is generally required -->
+									<pg30>
+										<arrival-time>2016-05-01T09:00:00</arrival-time>
+										<!-- This should be the port of arrival -->
+										<arrival-location-code>2809</arrival-location-code>
+									</pg30>
+								</fda-pga>
+							</fda-items>
+							
+							<!-- DEA PGA -->
+							<dea-items>
+								<dea-item>
+									<commercial-description>DEA Description</commercial-description>
+									<country-of-shipment>CN</country-of-shipment>
+									<dea-permit-number>1234567</dea-permit-number>
+									<dea-registration-number>123456789</dea-registration-number>
+									<arrival-date>2024-03-14</arrival-date>
+									<dea-form>911</dea-form>
+									<constituent-elements>
+										<constituent-element>
+											<dea-drug-code>6677</dea-drug-code>
+											<quantity-of-element>11.4</quantity-of-element>
+											<unit-of-measure>MG</unit-of-measure>
+										</constituent-element>
+									</constituent-elements>
+								</dea-item>
+							</dea-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item disclaiming FDA data in ACE -->
+				<line-item>
+					<export-date>2016-05-31</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>12345678</tariff-no>
+							<value>100</value>
+							<quantity1>5</quantity1>
+							<unit-of-measure1>KM</unit-of-measure1>
+							
+							<fda-items>
+								<disclaimed/>
+							</fda-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with NHTSA PGA information-->
+				<line-item>
+					<export-date>2016-05-31</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>12345678</tariff-no>
+							<value>100</value>
+							<quantity1>1</quantity1>
+							<unit-of-measure1>NO</unit-of-measure1>
+							
+							<dot-items>
+								<nhtsa-item>
+									<commercial-description>A CAR</commercial-description>
+									<pg01>
+										<!-- program code is required.  See NHTSA PGA Message Set for valid codes -->
+										<agency-program-code>MVS</agency-program-code>
+										<!-- This tag is optional.  If included it means you are saying Yes -->
+										<electronic-image-submitted/>
+									</pg01>
+									<pg07>
+										<!-- this is the make -->
+										<brand-name>FERRARI</brand-name>
+										<model>458 ITALIA</model>
+										<manufacture-month>09</manufacture-month>
+										<manufacture-year>2015</manufacture-year>
+										<!-- AKG is the code for VIN.  See NHTSA PGA Message Set for valid codes -->
+										<id-number-type>AKG</id-number-type>
+										<id-number>VINNUMBER</id-number>
+									</pg07>
+									
+									<!-- additional id-numbers (optional), in this case VIN numbers -->
+									<pg08>
+										<id-number>VINNUMBER2</id-number>
+										<id-number>VINNUMBER3</id-number>
+										<id-number>VINNUMBER4</id-number>
+									</pg08>
+									
+									<pg10>
+										<!-- category code is required.  See NHTSA PGA Message set for valid codes -->
+										<category-code>MVS1</category-code>
+										<!-- this code sometimes required, based on the box number -->
+										<commodity-qualifier-code>V06</commodity-qualifier-code>
+										<commodity-characteristic-qualifier>2015</commodity-characteristic-qualifier>
+									</pg10>
+									
+									<pg14>
+										<!-- for box3, continuous is required, see NHTSA PGA Message Set IG for details -->
+										<transaction-type>2</transaction-type>
+										<!-- box 3 requires NH0 -->
+										<license-type>NH0</license-type>
+										<license-number>R-90-007</license-number>
+									</pg14>
+									<pg14>
+										<!-- also required for box 3 -->
+										<transaction-type>2</transaction-type>
+										<license-type>NH3</license-type>
+										<license-number>VSA-039</license-number>
+									</pg14>
+									
+									<entity>
+										<role-code>OVM</role-code>
+										<name>FERRARI</name>
+										<address1>1 Fiorano</address1>
+										<city>MARANELLO</city>
+										<country>IT</country>
+										<contacts>
+											<pg21>
+												<name>LUCA DI MONTEZEMOLO</name>
+												<phone-number>123456</phone-number>
+												<email-or-fax>LUCA@FERRARI.COM</email-or-fax>
+											</pg21>
+										</contacts>
+									</entity>
+									<entity>
+										<role-code>CN</role-code>
+										<name>FERRARI NORTH AMERICA</name>
+										<address1>250 Sylvan Ave</address1>
+										<city>Englewood Cliffs</city>
+										<state>NJ</state>
+										<postal-code>07632</postal-code>
+										<country>US</country>
+									</entity>
+									
+									<!-- document type 946 is required, which contains the box number -->
+									<pg22>
+										<!-- other valid document types are 872, 873, 874, 875, 165, 958 -->
+										<document-type>946</document-type>
+										<!-- this is the box number -->
+										<conformance-declaration>3</conformance-declaration>
+										<!-- entity making the declaration -->
+										<entity-role-code>CN</entity-role-code>
+										<signature-date>2016-05-01</signature-date>
+									</pg22>
+									
+									<!-- if box type is 6, the country of embassy must be reported as follows -->
+									<pg24>
+										<remarks-type>NHE</remarks-type>
+										<!-- remark contains the embassy country code -->
+										<remark>IT</remark>
+									</pg24>
+									
+									<!-- PG34 is required for box 5 -->
+									<pg34>
+										<!-- passport number must be reported -->
+										<travel-document-type>1</travel-document-type>
+										<travel-document-country>IT</travel-document-country>
+										<travel-document-number>555666777</travel-document-number>
+									</pg34>
+									
+									<!-- PG35 is required for box 3 -->
+									<pg35>
+										<surety-code>222</surety-code>
+										<bond-number>12345</bond-number>
+										<bond-type>1</bond-type>
+										<bond-amount>100000</bond-amount>
+									</pg35>
+								</nhtsa-item>
+							</dot-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with TTB PGA information-->
+				<line-item>
+					<export-date>2017-05-31</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>12345678</tariff-no>
+							<value>100</value>
+							<quantity1>5</quantity1>
+							<unit-of-measure1>KM</unit-of-measure1>
+							
+							<ttb-items>
+								<ttb-item>
+									<commercial-description>WINE</commercial-description>
+									<processing-code>T04</processing-code>
+									<permits>
+										<permit>
+											<permit-type>1</permit-type>
+											<permit-number>555</permit-number>
+										</permit>
+										<permit>
+											<permit-type>3</permit-type>
+											<certificate-issuing-country>FR</certificate-issuing-country>
+											<importers-substantiating-statement>true</importers-substantiating-statement>
+										</permit>
+									</permits>
+								</ttb-item>
+								
+								<ttb-item>
+									<commercial-description>CIGARETTE PAPERS</commercial-description>
+									<processing-code>T51</processing-code>
+									<permits>
+										<permit>
+											<permit-type>5</permit-type>
+											<permit-number>678</permit-number>
+											<importers-substantiating-statement>true</importers-substantiating-statement>
+										</permit>
+									</permits>
+									<cigarette-paper-tube-info>
+										<quantity>300</quantity>
+										<units>PCS</units>
+									</cigarette-paper-tube-info>
+								</ttb-item>
+								
+								<ttb-item>
+									<commercial-description>LARGE CIGARS</commercial-description>
+									<processing-code>T43</processing-code>
+									<permits>
+										<permit>
+											<permit-type>1</permit-type>
+											<permit-number>987</permit-number>
+										</permit>
+									</permits>
+									<cigar-quantities>
+										<cigar-quantity>
+											<quantity>50</quantity>
+											<unit-price>
+												<price>.50</price>
+											</unit-price>
+										</cigar-quantity>
+										<cigar-quantity>
+											<quantity>100</quantity>
+											<unit-price>
+												<maximum-rate/>
+											</unit-price>
+										</cigar-quantity>
+										<cigar-quantity>
+											<quantity>200</quantity>
+											<unit-price>
+												<small-cigars/>
+											</unit-price>
+										</cigar-quantity>
+									</cigar-quantities>
+								</ttb-item>
+							</ttb-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with NMFS PGA information-->
+				<line-item>
+					<export-date>2018-05-31</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>12345678</tariff-no>
+							<value>100</value>
+							<quantity1>1</quantity1>
+							<unit-of-measure1>NO</unit-of-measure1>
+							
+							<nmfs-items>
+								<!-- program 370 example -->
+								<nmfs-item>
+									<commercial-description>YELLOWFIN TUNA</commercial-description>
+									<pg14>
+										<transaction-type>2</transaction-type>
+										<license-type>NM4</license-type>
+										<license-number>123</license-number>
+									</pg14>
+									<nmfs-program>
+										<pg01>
+											<agency-program-code>370</agency-program-code>
+											<agency-processing-code>YFT</agency-processing-code>
+											<electronic-image-submitted/>
+											<confidential-information/>
+										</pg01>
+										<origin-information>
+											<pg06>
+												<source-type-code>HRV</source-type-code>
+												<country-code>TW</country-code>
+												<geographic-location>WP</geographic-location>
+												<processing-type-code>LL</processing-type-code>
+											</pg06>
+											<pg22>
+												<document-type>877</document-type>
+												<conformance-declaration>B1</conformance-declaration>
+												<entity-role-code>Y</entity-role-code>
+											</pg22>
+											<harvesting-vessel-country>TW</harvesting-vessel-country>
+										</origin-information>
+									</nmfs-program>
+								</nmfs-item>
+								
+								<!-- SIMP example -->
+								<nmfs-item>
+									<commercial-description>KING CRAB</commercial-description>
+									<pg14>
+										<transaction-type>2</transaction-type>
+										<license-type>NM4</license-type>
+										<license-number>456</license-number>
+									</pg14>
+									<sim-program>
+										<electronic-image-submitted/>
+										<confidential-information/>
+										<pg05>
+											<species-code>KCD</species-code>
+										</pg05>
+										<pg06>
+											<source-type-code>HCF</source-type-code>
+											<country-code>US</country-code>
+											<geographic-location>NP</geographic-location>
+											<processing-start-date>2018-05-01</processing-start-date>
+											<processing-type-code>TRA</processing-type-code>
+											<processing-description>NDR</processing-description>
+										</pg06>
+										<entity>
+											<role-code>GD</role-code>
+											<name>NORTHWESTERN</name>
+											<city>DUTCH HARBOR</city>
+											<state>AL</state>
+											<country>US</country>
+											<contacts>
+												<pg21>
+													<name>SIG HANSEN</name>
+													<phone-number>1112223333</phone-number>
+												</pg21>
+											</contacts>
+										</entity>
+										<vessel-info>
+											<pg31>
+												<vessel-characteristic-type-code>VCR</vessel-characteristic-type-code>
+												<vessel-characteristic>TW</vessel-characteristic>
+												<harvested-weight>100</harvested-weight>
+												<weight-unit-of-measure>KG</weight-unit-of-measure>
+											</pg31>
+											<pg31>
+												<vessel-characteristic-type-code>VNM</vessel-characteristic-type-code>
+												<vessel-characteristic>NORTHWESTERN</vessel-characteristic>
+											</pg31>
+											<country-of-first-landing>US</country-of-first-landing>
+										</vessel-info>
+									</sim-program>
+								</nmfs-item>
+								
+								<!-- hms + simp -->
+								<nmfs-item>
+									<commercial-description>ATLANTIC BLUEFIN TUNA</commercial-description>
+									<pg14>
+										<transaction-type>2</transaction-type>
+										<license-type>NM4</license-type>
+										<license-number>789</license-number>
+									</pg14>
+									<pg14>
+										<transaction-type>1</transaction-type>
+										<license-type>NM5</license-type>
+										<license-number>12345</license-number>
+									</pg14>
+									<nmfs-program>
+										<pg01>
+											<agency-program-code>HMS</agency-program-code>
+											<electronic-image-submitted/>
+											<confidential-information/>
+										</pg01>
+										<origin-information>
+											<pg06>
+												<source-type-code>HRV</source-type-code>
+												<country-code>ES</country-code>
+												<geographic-location>EA</geographic-location>
+												<processing-type-code>LL</processing-type-code>
+											</pg06>
+											<pg22>
+												<entity-role-code>Y</entity-role-code>
+												<document-type>880</document-type>
+												<compliance-description>909</compliance-description>
+											</pg22>
+											<harvesting-vessel-country>ES</harvesting-vessel-country>
+										</origin-information>
+									</nmfs-program>
+									<sim-program>
+										<confidential-information/>
+										<pg05>
+											<species-code>BFT</species-code>
+										</pg05>
+										<pg06>
+											<source-type-code>HCF</source-type-code>
+											<country-code>ES</country-code>
+											<geographic-location>EA</geographic-location>
+											<processing-start-date>2018-05-01</processing-start-date>
+											<processing-type-code>LL</processing-type-code>
+											<processing-description>NFL</processing-description>
+										</pg06>
+										<entity>
+											<role-code>GD</role-code>
+											<name>PESCADOR</name>
+											<city>BARCELONA</city>
+											<country>ES</country>
+											<contacts>
+												<pg21>
+													<name>JUAN CARLOS</name>
+													<email-or-fax>JUAN@PESCADOR.COM</email-or-fax>
+												</pg21>
+											</contacts>
+										</entity>
+										<vessel-info>
+											<pg31>
+												<vessel-characteristic-type-code>VCR</vessel-characteristic-type-code>
+												<vessel-characteristic>ES</vessel-characteristic>
+												<harvested-weight>200</harvested-weight>
+												<weight-unit-of-measure>KG</weight-unit-of-measure>
+											</pg31>
+											<pg31>
+												<vessel-characteristic-type-code>VNM</vessel-characteristic-type-code>
+												<vessel-characteristic>DON QUIXOTE</vessel-characteristic>
+											</pg31>
+											<country-of-first-landing>ES</country-of-first-landing>
+										</vessel-info>
+									</sim-program>
+								</nmfs-item>
+							</nmfs-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with APHIS Core PGA information-->
+				<line-item>
+					<export-date>2018-11-30</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>12345678</tariff-no>
+							<value>100</value>
+							<quantity1>10</quantity1>
+							<unit-of-measure1>KG</unit-of-measure1>
+							
+							<aphis-items>
+								<aphis-item>
+									<commercial-description>APHIS INFORMATION</commercial-description>
+									<pg01>
+										<agency-program-code>AAC</agency-program-code>
+										<agency-processing-code>A01</agency-processing-code>
+										<intended-use-code>100.000</intended-use-code>
+										<intended-use-description>SOME USE</intended-use-description>
+										<confidential-information/>
+									</pg01>
+									<pg02>
+										<item-type>P</item-type>
+										<product-code-qualifier>GPC</product-code-qualifier>
+										<product-code>123</product-code>
+									</pg02>
+									<origin-information>
+										<origin>
+											<pg05>
+												<genus-name>THE GENUS</genus-name>
+												<species-name>THE SPECIES</species-name>
+												<sub-species-name>THE SUB-SPECIES</sub-species-name>
+											</pg05>
+											<pg06>
+												<source-type-code>39</source-type-code>
+												<country-code>CN</country-code>
+												<geographic-location>THE LOCATION</geographic-location>
+												<processing-start-date>2018-12-01</processing-start-date>
+												<processing-end-date>2018-12-10</processing-end-date>
+												<processing-type-code>123</processing-type-code>
+												<processing-description>DESC</processing-description>
+											</pg06>
+										</origin>
+									</origin-information>
+									<id-numbers>
+										<id-number>
+											<pg07>
+												<id-number-type>BND</id-number-type>
+												<id-number>567</id-number>
+											</pg07>
+											<!-- additional ID numbers can be included here -->
+											<pg08>
+												<id-number>568</id-number>
+												<id-number>569</id-number>
+											</pg08>
+											<pg10>
+												<category-type>AP0100</category-type>
+												<category-code>102</category-code>
+												<commodity-qualifier-code>A11</commodity-qualifier-code>
+												<commodity-characteristic-qualifier>ALVH</commodity-characteristic-qualifier>
+												<commodity-characteristic-description>DESCRIPTION</commodity-characteristic-description>
+											</pg10>
+										</id-number>
+									</id-numbers>
+									<licenses>
+										<license>
+											<pg13>
+												<issuer-of-lpco>the issuing agency</issuer-of-lpco>
+												<location-code-qualifier>ISO</location-code-qualifier>
+												<location-code>CN</location-code>
+												<location-description>some location</location-description>
+											</pg13>
+											<pg14>
+												<transaction-type>1</transaction-type>
+												<license-type>A01</license-type>
+												<license-number>90909</license-number>
+												<lpco-date-type>3</lpco-date-type>
+												<lpco-date>2018-12-01</lpco-date>
+												<quantity>10</quantity>
+												<unit>KG</unit>
+											</pg14>
+										</license>
+									</licenses>
+									<common-names>
+										<pg17>
+											<specific-name>something specific</specific-name>
+											<general-name>a general name</general-name>
+										</pg17>
+									</common-names>
+									<entities>
+										<entity>
+											<role-code>LAP</role-code>
+											<name>LPCO party</name>
+											<address1>the address</address1>
+											<city>the city</city>
+											<postal-code>10101</postal-code>
+											<country>CN</country>
+											<contacts>
+												<pg21>
+													<name>some person</name>
+													<phone-number>9998887777</phone-number>
+													<email-or-fax>person@email.com</email-or-fax>
+												</pg21>
+											</contacts>
+										</entity>
+									</entities>
+									<documents>
+										<pg22>
+											<importers-substantiating-statement>true</importers-substantiating-statement>
+											<document-type>311</document-type>
+											<invoice-number>887766</invoice-number>
+											<signature-date>2018-12-05</signature-date>
+										</pg22>
+									</documents>
+									<remarks>
+										<pg24>
+											<remarks-type>AP5</remarks-type>
+											<remarks-code>A25</remarks-code>
+											<remark>some remarks</remark>
+										</pg24>
+									</remarks>
+									<packaging>
+										<pg26><quantity>100</quantity><unit-of-measure>NO</unit-of-measure></pg26>
+										<pg26><quantity>5</quantity><unit-of-measure>KG</unit-of-measure></pg26>
+									</packaging>
+									<containers>
+										<pg27>
+											<container-number>3456</container-number>
+											<type>2</type>
+											<length>20</length>
+										</pg27>
+									</containers>
+									<inspection-status>
+										<pg30>
+											<inspection-status>P</inspection-status>
+											<arrival-time>2018-12-15T12:00:00</arrival-time>
+											<arrival-location-description>AF</arrival-location-description>
+										</pg30>
+										<pg30>
+											<inspection-status>A</inspection-status>
+											<arrival-time>2018-12-15T12:00:00</arrival-time>
+											<arrival-location-description>1001</arrival-location-description>
+										</pg30>
+									</inspection-status>
+									<routing-information>
+										<pg32>
+											<routing-type>198</routing-type>
+											<routing-country>CN</routing-country>
+											<routing-subentity>guangzhou</routing-subentity>
+										</pg32>
+									</routing-information>
+								</aphis-item>
+							</aphis-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with EPA Pesticide, TSCA and ODS information-->
+				<line-item>
+					<export-date>2018-11-30</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>2903799030</tariff-no>
+							<value>100</value>
+							<quantity1>10</quantity1>
+							<unit-of-measure1>KG</unit-of-measure1>
+							
+							<epa-items>
+								<epa-item>
+									<commercial-description>OFF MOSQUITO REPELLENT</commercial-description>
+									<tsca>EP5</tsca>
+									<ods>EP4</ods>
+									<ods-submitted-via-dis/>
+									<certifying-individual>
+										<name>BOB</name>
+										<phone>1112223333</phone>
+										<email>BOB@EMAIL.COM</email>
+									</certifying-individual>
+									
+									<pesticide>
+										<pg01>
+											<agency-program-code>PS1</agency-program-code>
+											<electronic-image-submitted/>
+											<confidential-information/>
+										</pg01>
+										<pg02>
+											<item-type>P</item-type>
+											<product-code-qualifier>CAS</product-code-qualifier>
+											<product-code>94271-03-1</product-code>
+										</pg02>
+										<pg07><brand-name>OFF MOSQUITO REPELLENT</brand-name></pg07>
+										<pg14>
+											<license-type>EP8</license-type>
+											<license-number>69340-8</license-number>
+										</pg14>
+										<entities>
+											<entity>
+												<role-code>EPN</role-code>
+												<id-number>001234CHN002</id-number>
+											</entity>
+											<entity>
+												<role-code>CAR</role-code>
+												<name>THE CARRIER</name>
+												<address1>123 SOME STREET</address1>
+												<city>A CITY</city>
+												<country>CN</country>
+												<contacts>
+													<pg21>
+														<name>JOHN</name>
+														<email-or-fax>JOHN@SUPERBROKERAGE.COM</email-or-fax>
+														<phone-number>2022345678</phone-number>
+													</pg21>
+												</contacts>
+											</entity>
+											<entity>
+												<role-code>DEQ</role-code>
+												<name>THE SHIPPER</name>
+												<address1>456 ABC STREET</address1>
+												<city>HONG KONG</city>
+												<country>HK</country>
+												<contacts>
+													<pg21>
+														<name>JIM</name>
+														<email-or-fax>JIM@SHIPPER.COM</email-or-fax>
+														<phone-number>2223335678</phone-number>
+													</pg21>
+												</contacts>
+											</entity>
+											<entity>
+												<role-code>LG</role-code>
+												<name>THE LOCATION</name>
+												<address1>909 PORT STREET</address1>
+												<city>LOS ANGELES</city>
+												<state>CA</state>
+												<postal-code>90010</postal-code>
+												<country>US</country>
+											</entity>
+										</entities>
+										
+										<pg22>
+											<document-type>944</document-type>
+											<entity-role-code>CI</entity-role-code>
+											<signature-date>2018-12-20</signature-date>
+										</pg22>
+										
+										<remarks>
+											<pg24>
+												<remarks-type>EP5</remarks-type>
+												<remarks-code>REX</remarks-code>
+												<remark>SPECIFIC REMARK</remark>
+											</pg24>
+											<pg24>
+												<remarks-type>GEN</remarks-type>
+												<remark>GENERAL REMARK</remark>
+											</pg24>
+										</remarks>
+										
+										<packaging>
+											<pg26>
+												<quantity>100</quantity>
+												<unit-of-measure>KG</unit-of-measure>
+											</pg26>
+											<pg26>
+												<quantity>50</quantity>
+												<unit-of-measure>BO</unit-of-measure>
+											</pg26>
+										</packaging>
+										
+										<pg29>
+											<line-net-quantity>100</line-net-quantity>
+											<line-net-units>KG</line-net-units>
+										</pg29>
+										
+										<components>
+											<pg04>
+												<active-ingredient/>
+												<name-of-element>deet</name-of-element>
+												<percent-of-element>1.05</percent-of-element>
+											</pg04>
+										</components>
+									</pesticide>
+								</epa-item>
+							</epa-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with EPA Vehicle information-->
+				<line-item>
+					<export-date>2018-11-30</export-date>
+					<country-origin>IT</country-origin>
+					<manufacturer-id>ITFER101MAR</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>8903999000</tariff-no>
+							<value>900000</value>
+							<quantity1>3</quantity1>
+							<unit-of-measure1>NO</unit-of-measure1>
+							
+							<epa-items>
+								<epa-item>
+									<commercial-description>FERRARI 488</commercial-description>
+									<vehicle-engine>
+										<pg01>
+											<agency-program-code>ORD</agency-program-code>
+											<electronic-image-submitted/>
+										</pg01>
+										<pg02>
+											<item-type>P</item-type>
+										</pg02>
+										
+										<import-codes>
+											<pg24>
+												<remarks-type>EP2</remarks-type>
+												<remarks-code>O</remarks-code>
+											</pg24>
+										</import-codes>
+										
+										<vehicles-or-engines>
+											<vehicle-or-engine>
+												<pg07>
+													<model>488</model>
+													<manufacture-month>10</manufacture-month>
+													<manufacture-year>2018</manufacture-year>
+													<id-number-type>AKG</id-number-type>
+													<id-number>ITWUU16M4CLAU5577</id-number>
+												</pg07>
+												<pg08>
+													<id-number>ITWUU16M4CLAU5578</id-number>
+													<id-number>ITWUU16M4CLAU5579</id-number>
+												</pg08>
+												<components>
+													<pg07>
+														<model>F154 CB</model>
+														<manufacture-month>10</manufacture-month>
+														<manufacture-year>2018</manufacture-year>
+														<id-number-type>ENN</id-number-type>
+														<id-number>43894</id-number>
+													</pg07>
+												</components>
+											</vehicle-or-engine>
+										</vehicles-or-engines>
+										
+										<characteristics>
+											<pg10>
+												<commodity-qualifier-code>V02</commodity-qualifier-code>
+												<commodity-characteristic-description>COUPE</commodity-characteristic-description>
+											</pg10>
+											<pg10>
+												<commodity-qualifier-code>V05</commodity-qualifier-code>
+												<commodity-characteristic-qualifier>VEH</commodity-characteristic-qualifier>
+											</pg10>
+											<pg10>
+												<commodity-qualifier-code>V06</commodity-qualifier-code>
+												<commodity-characteristic-description>2019</commodity-characteristic-description>
+											</pg10>
+										</characteristics>
+										
+										<licenses>
+											<pg14>
+												<license-type>EP4</license-type>
+												<license-number>TESTING GROUP</license-number>
+											</pg14>
+											<pg14>
+												<license-type>EP7</license-type>
+												<license-number>BOND POLICY</license-number>
+											</pg14>
+										</licenses>
+										
+										<entities>
+											<entity>
+												<role-code>CI</role-code>
+												<name>THE CERTIFYING PARTY</name>
+												<address1>909 PORT STREET</address1>
+												<city>LOS ANGELES</city>
+												<state>CA</state>
+												<postal-code>90010</postal-code>
+												<country>US</country>
+												<contacts>
+													<pg21>
+														<name>BOB</name>
+														<email-or-fax>BOB@CERTIFY.COM</email-or-fax>
+														<phone-number>7775552222</phone-number>
+													</pg21>
+												</contacts>
+											</entity>
+											<entity>
+												<role-code>DFP</role-code>
+												<name>THE OWNER</name>
+												<address1>456 ABC STREET</address1>
+												<city>HONG KONG</city>
+												<country>HK</country>
+												<contacts>
+													<pg21>
+														<name>JIM</name>
+														<email-or-fax>JIM@OWNER.COM</email-or-fax>
+														<phone-number>2223335678</phone-number>
+													</pg21>
+												</contacts>
+											</entity>
+											<entity>
+												<role-code>MF</role-code>
+												<name>FERRARI</name>
+												<address1>812 TRAVIATA</address1>
+												<city>MARANELLO</city>
+												<country>IT</country>
+												<contacts>
+													<pg21>
+														<name>ENZO</name>
+														<email-or-fax>ENZO@FERRARI.COM</email-or-fax>
+														<phone-number>2223335678</phone-number>
+													</pg21>
+												</contacts>
+											</entity>
+											<entity>
+												<role-code>STL</role-code>
+												<contacts>
+													<pg21>
+														<name>NAME OF STORER</name>
+														<phone-number>8087075005</phone-number>
+														<email-or-fax>person@storage.com</email-or-fax>
+													</pg21>
+												</contacts>
+											</entity>
+										</entities>
+										
+										<pg22><signature-date>2018-12-20</signature-date></pg22>
+										
+										<remarks>
+											<pg24>
+												<remarks-type>GEN</remarks-type>
+												<remark>SOME CARS</remark>
+											</pg24>
+										</remarks>
+										
+										<additional-components>
+											<component>
+												<pg07>
+													<model>COMPONENT NAME</model>
+													<manufacture-month>10</manufacture-month>
+													<manufacture-year>2018</manufacture-year>
+													<id-number-type>SE</id-number-type>
+													<id-number>23456</id-number>
+												</pg07>
+												<manufacturer-name>FERRARI</manufacturer-name>
+												<license-type>EP4</license-type>
+												<license-number>10101</license-number>
+											</component>
+										</additional-components>
+									</vehicle-engine>
+								</epa-item>
+							</epa-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with FSIS information-->
+				<line-item>
+					<export-date>2018-12-20</export-date>
+					<country-origin>MX</country-origin>
+					<manufacturer-id>MXABC101MAR</manufacturer-id>
+					
+					<tariffs>
+						<tariff>
+							<tariff-no>1602500800</tariff-no>
+							<value>20000</value>
+							<quantity1>1000</quantity1>
+							<unit-of-measure1>KG</unit-of-measure1>
+							
+							<fsis-items>
+								<fsis-item>
+									<commercial-description>MEAT</commercial-description>
+									<pg01>
+										<product-id-qualifier>AI</product-id-qualifier>
+										<product-id>1010101</product-id>
+										<intended-use-code>909</intended-use-code>
+									</pg01>
+									<pg06>
+										<source-type-code>39</source-type-code>
+										<country-code>MX</country-code>
+									</pg06>
+									<pg06>
+										<source-type-code>30</source-type-code>
+										<country-code>MX</country-code>
+									</pg06>
+									<inspection-date>2019-01-15</inspection-date>
+									<location-code>8</location-code>
+									<location>90909</location>
+									<form9540-signature-date>2019-01-16</form9540-signature-date>
+									<inspection-certificate>
+										<pg13>
+											<location-code-qualifier>ISO</location-code-qualifier>
+											<location-code>MX</location-code>
+										</pg13>
+										<pg14>
+											<license-type>FS7</license-type>
+											<license-number>12345</license-number>
+										</pg14>
+										<lot-number>
+											<certificate-line-number>1</certificate-line-number>
+											<net-weight>50</net-weight>
+											<outer-container>
+												<quantity>20</quantity>
+												<unit>CS</unit>
+												<shipping-mark>1</shipping-mark>
+											</outer-container>
+											<inner-container>
+												<quantity>10</quantity>
+												<unit>BX</unit>
+												<shipping-mark>2</shipping-mark>
+											</inner-container>
+											<category-code>1</category-code>
+											<commodity-type>RPNI</commodity-type>
+											<commodity-characteristic>1A</commodity-characteristic>
+											<producing-establishment>11111</producing-establishment>
+											<exporting-establishment>22222</exporting-establishment>
+											<source-establishment>33333</source-establishment>
+											<production-start-date>2019-01-01</production-start-date>
+											<production-end-date>2019-01-13</production-end-date>
+										</lot-number>
+									</inspection-certificate>
+									<entities>
+										<entity>
+											<role-code>CB</role-code>
+											<name>BROKER</name>
+											<phone-number>1112223333</phone-number>
+											<email-or-fax>broker@broker.com</email-or-fax>
+										</entity>
+										<entity>
+											<role-code>CI</role-code>
+											<name>CERTIFIER</name>
+											<phone-number>9998887777</phone-number>
+											<email-or-fax>C@CERT.COM</email-or-fax>
+										</entity>
+										<entity>
+											<role-code>CN</role-code>
+											<name>THE CONSIGNEE</name>
+											<phone-number>5556667777</phone-number>
+											<email-or-fax>C@CONSIGNEE.COM</email-or-fax>
+										</entity>
+										<entity>
+											<role-code>IM</role-code>
+											<name>THE IMPORTER</name>
+											<phone-number>2223334444</phone-number>
+											<email-or-fax>I@IMPORTER.COM</email-or-fax>
+										</entity>
+									</entities>
+									<seal-numbers>
+										<pg24><remark>202</remark></pg24>
+									</seal-numbers>
+								</fsis-item>
+							</fsis-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+				
+				<!-- line item with Lacey Act information -->
+				<line-item>
+					<export-date>2021-04-21</export-date>
+					<country-origin>cn</country-origin>
+					<manufacturer-id>cnmanufacturer</manufacturer-id>
+					<related-party>Y</related-party>
+					<exporter>cnmanufacturer</exporter>
+					<sold-to>123-45-6789</sold-to>
+					<tariffs>
+						<tariff>
+							<tariff-no>4416003010</tariff-no>
+							<value>1000</value>
+							<quantity1>20</quantity1>
+							<unit-of-measure1>NO</unit-of-measure1>
+							<lacey-items>
+								<disclaimed>
+									<reason-code>C</reason-code>
+								</disclaimed>
+							</lacey-items>
+						</tariff>
+						<tariff>
+							<tariff-no>6602000000</tariff-no>
+							<value>1000</value>
+							<quantity1>20</quantity1>
+							<unit-of-measure1>NO</unit-of-measure1>
+							<lacey-items>
+								<lacey-item>
+									<line-value>123.45</line-value>
+									<commercial-description>Lacey Desc Here</commercial-description>
+									<declaration-signed-date>2022-02-26</declaration-signed-date>
+									<entities>
+										<entity>
+											<role-code>IM</role-code>
+											<contacts>
+												<pg21>
+													<name>First Entity Contact</name>
+													<phone-number>1234567890</phone-number>
+													<email-or-fax>first@email.com</email-or-fax>
+												</pg21>
+												<pg21>
+													<name>Second Entity Contact</name>
+													<phone-number>2468013579</phone-number>
+													<email-or-fax>sec@email.com</email-or-fax>
+												</pg21>
+											</contacts>
+										</entity>
+									</entities>
+									<product-component-information>
+										<product-component>
+											<pg04>
+												<active-ingredient/>
+												<name-of-element>Clark Kent</name-of-element>
+												<quantity-of-element>50.3</quantity-of-element>
+												<unit-of-measure>L</unit-of-measure>
+												<percent-of-element>45</percent-of-element>
+											</pg04>
+										</product-component>
+										<product-component>
+											<pg04>
+												<name-of-element>Lois Lane</name-of-element>
+												<quantity-of-element>50.34</quantity-of-element>
+												<unit-of-measure>KG</unit-of-measure>
+											</pg04>
+											<pg05>
+												<genus-name>Genus</genus-name>
+												<species-name>Species</species-name>
+											</pg05>
+										</product-component>
+										<product-component>
+											<pg04>
+												<name-of-element>3rd comp name</name-of-element>
+												<quantity-of-element>150.34</quantity-of-element>
+												<unit-of-measure>MM</unit-of-measure>
+											</pg04>
+											<pg05>
+												<genus-name>Genus</genus-name>
+												<species-name>Species</species-name>
+											</pg05>
+											<pg06>
+												<source-type-code>HRV</source-type-code>
+												<country-code>US</country-code>
+											</pg06>
+											<pg06>
+												<source-type-code>HRV</source-type-code>
+												<country-code>MX</country-code>
+											</pg06>
+										</product-component>
+									</product-component-information>
+									<containers>
+										<pg27>
+											<container-number>123456</container-number>
+										</pg27>
+										<pg27>
+											<container-number>6</container-number>
+										</pg27>
+										<pg27>
+											<container-number>555555</container-number>
+										</pg27>
+									</containers>
+									<lpco-information>
+										<pg14>
+											<transaction-type>1</transaction-type>
+											<license-type>A17</license-type>
+											<license-number>12345</license-number>
+											<lpco-date-type>1</lpco-date-type>
+											<lpco-date>2022-02-25</lpco-date>
+										</pg14>
+										<pg14>
+											<transaction-type>2</transaction-type>
+											<license-type>A01</license-type>
+											<license-number>12345</license-number>
+											<lpco-date-type>3</lpco-date-type>
+											<lpco-date>2022-02-15</lpco-date>
+										</pg14>
+										<pg14>
+											<transaction-type>3</transaction-type>
+											<license-type>FWD</license-type>
+											<license-number>12345</license-number>
+											<lpco-date-type>1</lpco-date-type>
+											<lpco-date>2022-02-05</lpco-date>
+										</pg14>
+									</lpco-information>
+								</lacey-item>
+							</lacey-items>
+						</tariff>
+					</tariffs>
+				</line-item>
+			</line-items>
+		</invoice>
+		
+		<!-- a second invoice just to show that it's possible-->
+		<invoice>
+			<invoice-no>12346</invoice-no>
+			<line-items></line-items>
+		</invoice>
+	</invoices>
+</entry>

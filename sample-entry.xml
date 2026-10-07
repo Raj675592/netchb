@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns="http://www.netchb.com/xml/entry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.netchb.com/xml/entry http://www.netchb.com/xml/entry/entry.xsd">
+  <entry-no>
+    <system-generated/>
+  </entry-no>
+  <header>
+    <ultimate-consignee>
+      <consignee-name>CASCADE FULFILLMENT PARTNERS LLC</consignee-name>
+    </ultimate-consignee>
+    <processing-port>3002</processing-port>
+    <entry-port>3002</entry-port>
+    <entry-date>2026-10-07</entry-date>
+    <entry-type>01</entry-type>
+    <gross-weight>1930</gross-weight>
+    <total-entry-value>22899</total-entry-value>
+    <description>APPAREL - KNIT AND WOVEN GARMENTS</description>
+    <vessel-name>PACIFIC ARGOS</vessel-name>
+    <mode-transportation>11</mode-transportation>
+    <unlading-port>3002</unlading-port>
+    <arrival-date>2026-10-14</arrival-date>
+    <carrier-code>OPLU</carrier-code>
+    <customer-reference-no>NB-26-0918</customer-reference-no>
+    <voyage-no>041E</voyage-no>
+  </header>
+  <manifest>
+    <bill-of-lading>
+      <master-scac>OPLU</master-scac>
+      <master-bill>OPLUSNG260917735</master-bill>
+      <house-bill>BMLVHCM26090418</house-bill>
+      <quantity>138</quantity>
+      <unit>CTNS</unit>
+    </bill-of-lading>
+  </manifest>
+  <invoices>
+    <invoice>
+      <invoice-no>KBAS-NB-26-0912</invoice-no>
+      <related-party>N</related-party>
+      <line-items>
+        <line-item>
+          <country-origin>VN</country-origin>
+          <country-export>VN</country-export>
+          <related-party>N</related-party>
+          <gross-weight>480</gross-weight>
+          <invoice-quantity>2400</invoice-quantity>
+          <commercial-description>MEN'S CREW NECK SHORT SLEEVE T-SHIRT, 100% COTTON, KNIT</commercial-description>
+          <tariffs>
+            <tariff>
+              <tariff-no>610910</tariff-no>
+              <value>6480.00</value>
+              <quantity1>2400</quantity1>
+              <unit-of-measure1>PCS</unit-of-measure1>
+            </tariff>
+          </tariffs>
+        </line-item>
+        <line-item>
+          <country-origin>VN</country-origin>
+          <country-export>VN</country-export>
+          <related-party>N</related-party>
+          <gross-weight>774</gross-weight>
+          <invoice-quantity>1200</invoice-quantity>
+          <commercial-description>WOMEN'S PULLOVER HOODIE, 60% COTTON 40% POLYESTER, KNIT</commercial-description>
+          <tariffs>
+            <tariff>
+              <tariff-no>611020</tariff-no>
+              <value>8880.00</value>
+              <quantity1>1200</quantity1>
+              <unit-of-measure1>PCS</unit-of-measure1>
+            </tariff>
+          </tariffs>
+        </line-item>
+        <line-item>
+          <country-origin>VN</country-origin>
+          <country-export>VN</country-export>
+          <related-party>N</related-party>
+          <gross-weight>522</gross-weight>
+          <invoice-quantity>900</invoice-quantity>
+          <commercial-description>MEN'S SLIM FIT CHINO TROUSERS, 98% COTTON 2% ELASTANE, WOVEN</commercial-description>
+          <tariffs>
+            <tariff>
+              <tariff-no>620342</tariff-no>
+              <value>6255.00</value>
+              <quantity1>900</quantity1>
+              <unit-of-measure1>PCS</unit-of-measure1>
+            </tariff>
+          </tariffs>
+        </line-item>
+        <line-item>
+          <country-origin>VN</country-origin>
+          <country-export>VN</country-export>
+          <related-party>N</related-party>
+          <gross-weight>106</gross-weight>
+          <invoice-quantity>600</invoice-quantity>
+          <commercial-description>WOMEN'S LONG SLEEVE BLOUSE, 100% POLYESTER, WOVEN</commercial-description>
+          <tariffs>
+            <tariff>
+              <tariff-no>620640</tariff-no>
+              <value>1260.00</value>
+              <quantity1>600</quantity1>
+              <unit-of-measure1>PCS</unit-of-measure1>
+            </tariff>
+          </tariffs>
+        </line-item>
+        <line-item>
+          <country-origin>BD</country-origin>
+          <country-export>VN</country-export>
+          <related-party>N</related-party>
+          <gross-weight>6</gross-weight>
+          <invoice-quantity>24</invoice-quantity>
+          <commercial-description>WOMEN'S SHORT SLEEVE POLO SHIRT SAMPLES, 100% COTTON, KNIT</commercial-description>
+          <tariffs>
+            <tariff>
+              <tariff-no>610610</tariff-no>
+              <value>24.00</value>
+              <quantity1>24</quantity1>
+              <unit-of-measure1>PCS</unit-of-measure1>
+            </tariff>
+          </tariffs>
+        </line-item>
+      </line-items>
+    </invoice>
+  </invoices>
+</entry>
