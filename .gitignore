@@ -2,5 +2,10 @@ node_modules/
 dist/
 dist-server/
 .env
+.env.*
+!.env.example
+.local-mongodb/
 .DS_Store
 *.tsbuildinfo
+*.traineddata
+.sefer-sample-*.pdf

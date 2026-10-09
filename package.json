@@ -3,28 +3,35 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "concurrently \"npm:dev:api\" \"npm:dev:web\"",
     "dev:api": "tsx watch server/index.ts",
-    "dev:web": "vite --host 0.0.0.0",
+    "dev:web": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build && tsc --noEmit -p server/tsconfig.json",
     "start": "tsx server/index.ts",
     "generate:sample": "tsx server/generate-sample.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^18.0.6",
     "express": "^4.21.2",
     "lucide-react": "^0.468.0",
-    "multer": "^1.4.5-lts.1",
+    "mongodb": "^7.7.0",
+    "multer": "^2.4.0",
     "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^4.10.38",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "tesseract.js": "^7.0.0",
     "xmlbuilder2": "^3.1.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/multer": "^1.4.12",
+    "@types/multer": "^2.3.0",
     "@types/node": "^22.10.2",
     "@types/pdf-parse": "^1.1.4",
     "@types/react": "^18.3.18",
